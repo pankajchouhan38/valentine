@@ -49,6 +49,10 @@ button {
     background: white;
     color: #ff4e8d;
 }
+
+.optionBtn:hover {
+    transform: scale(1.05);
+}
 </style>
 </head>
 
@@ -63,7 +67,10 @@ button {
 
 <script>
 
-const yourEmail = "pankajchouhan539@gmail.com"; // 🔥 Replace with your email
+const yourEmail = "pankjchouhan539@gmail.com"; // 🔥 replace with your email
+
+let selectedDate = "";
+let promAnswer = "";
 
 function moveButton() {
     const button = document.getElementById("noBtn");
@@ -86,34 +93,51 @@ function chooseDate() {
         <h1>Pick Our Date 💖</h1>
         <h2>Which day should we make magical? ✨</h2>
 
-        <form action="https://formsubmit.co/${yourEmail}" method="POST">
-            <input type="hidden" name="_subject" value="She Picked The Date 💖">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="">
-
-            <button class="optionBtn" name="Selected Date" value="13 February" onclick="goToProm()">13 💕</button>
-            <button class="optionBtn" name="Selected Date" value="14 February" onclick="goToProm()">14 🌹</button>
-            <button class="optionBtn" name="Selected Date" value="15 February" onclick="goToProm()">15 💫</button>
-            <button class="optionBtn" name="Selected Date" value="I'll let you know" onclick="goToProm()">I'll let you know 😌</button>
-        </form>
+        <button class="optionBtn" onclick="saveDate('13 February')">13 💕</button>
+        <button class="optionBtn" onclick="saveDate('14 February')">14 🌹</button>
+        <button class="optionBtn" onclick="saveDate('15 February')">15 💫</button>
+        <button class="optionBtn" onclick="saveDate('I will let you know')">I'll let you know 😌</button>
     `;
 }
 
-function goToProm() {
-    setTimeout(() => {
-        document.getElementById("main").innerHTML = `
-            <h1>One More Thing... 💃✨</h1>
-            <h2>Do you want to go to prom with me?</h2>
+function saveDate(date) {
+    selectedDate = date;
+    askProm();
+}
 
-            <form action="https://formsubmit.co/${yourEmail}" method="POST">
-                <input type="hidden" name="_subject" value="Prom Answer 💃✨">
-                <input type="hidden" name="_captcha" value="false">
+function askProm() {
+    document.getElementById("main").innerHTML = `
+        <h1>One More Thing... 💃✨</h1>
+        <h2>Will you go to prom with me?</h2>
 
-                <button class="optionBtn" name="Prom Response" value="YES">YESSSS 💖</button>
-                <button class="optionBtn" name="Prom Response" value="Absolutely YES">Absolutely YES 😍</button>
-            </form>
-        `;
-    }, 300);
+        <button class="optionBtn" onclick="submitAll('YES')">YESSS 💖</button>
+        <button class="optionBtn" onclick="submitAll('Absolutely YES')">Absolutely YES 😍</button>
+    `;
+}
+
+function submitAll(answer) {
+    promAnswer = answer;
+
+    // Create hidden form dynamically
+    const form = document.createElement("form");
+    form.action = "https://formsubmit.co/" + yourEmail;
+    form.method = "POST";
+
+    form.innerHTML = `
+        <input type="hidden" name="_subject" value="She Said YES 💖">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Selected Date" value="${selectedDate}">
+        <input type="hidden" name="Prom Response" value="${promAnswer}">
+    `;
+
+    document.body.appendChild(form);
+    form.submit();
+
+    document.getElementById("main").innerHTML = `
+        <h1>🎉 PROM DATE CONFIRMED 🎉</h1>
+        <h2>I can't wait to make memories with you ✨</h2>
+        <h3>Forever starts here 💖</h3>
+    `;
 }
 
 </script>
