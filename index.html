@@ -35,10 +35,6 @@ button {
     color: #ff4e8d;
 }
 
-#yesBtn:hover {
-    transform: scale(1.1);
-}
-
 #noBtn {
     background: #ff4e8d;
     color: white;
@@ -48,10 +44,6 @@ button {
 .optionBtn {
     background: white;
     color: #ff4e8d;
-}
-
-.optionBtn:hover {
-    transform: scale(1.05);
 }
 </style>
 </head>
@@ -67,7 +59,7 @@ button {
 
 <script>
 
-const yourEmail = "pankjchouhan539@gmail.com"; // 🔥 replace with your email
+const yourEmail = "pankajchouhan539@gmail.com"; // 🔥 replace this
 
 let selectedDate = "";
 let promAnswer = "";
@@ -110,34 +102,42 @@ function askProm() {
         <h1>One More Thing... 💃✨</h1>
         <h2>Will you go to prom with me?</h2>
 
-        <button class="optionBtn" onclick="submitAll('YES')">YESSS 💖</button>
-        <button class="optionBtn" onclick="submitAll('Absolutely YES')">Absolutely YES 😍</button>
+        <button class="optionBtn" onclick="finalStep('YES')">YESSS 💖</button>
+        <button class="optionBtn" onclick="finalStep('Absolutely YES')">Absolutely YES 😍</button>
     `;
 }
 
-function submitAll(answer) {
+function finalStep(answer) {
     promAnswer = answer;
 
-    // Create hidden form dynamically
+    // Show romantic screen FIRST
+    document.getElementById("main").innerHTML = `
+        <h1>🎉 PROM DATE CONFIRMED 🎉</h1>
+        <h2>I can't wait to make memories with you ✨</h2>
+        <h3>You chose: ${selectedDate}</h3>
+        <h3>Prom: ${promAnswer}</h3>
+    `;
+
+    // Submit in background after 2 seconds
+    setTimeout(sendForm, 3000);
+}
+
+function sendForm() {
     const form = document.createElement("form");
     form.action = "https://formsubmit.co/" + yourEmail;
     form.method = "POST";
+    form.target = "_blank"; // prevents redirect
 
     form.innerHTML = `
         <input type="hidden" name="_subject" value="She Said YES 💖">
         <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
         <input type="hidden" name="Selected Date" value="${selectedDate}">
         <input type="hidden" name="Prom Response" value="${promAnswer}">
     `;
 
     document.body.appendChild(form);
     form.submit();
-
-    document.getElementById("main").innerHTML = `
-        <h1>🎉 PROM DATE CONFIRMED 🎉</h1>
-        <h2>I can't wait to make memories with you ✨</h2>
-        <h3>Forever starts here 💖</h3>
-    `;
 }
 
 </script>
