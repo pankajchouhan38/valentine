@@ -18,6 +18,7 @@ body {
 
 .container {
     margin-top: 20vh;
+    position: relative;
 }
 
 button {
@@ -34,8 +35,11 @@ button {
     color: #ff4e8d;
 }
 
+/* NO button must have initial position */
 #noBtn {
     position: absolute;
+    top: 70px;          /* 👈 THIS is the fix */
+    left: 55%;
 }
 </style>
 </head>
@@ -46,13 +50,17 @@ button {
     <h1>Hey Beautiful 💖</h1>
     <h2>Will you be my Valentine? 💌</h2>
     <button class="optionBtn" onclick="nextStep()">YES 💖</button>
-    <button id="noBtn" class="optionBtn"
-        onmouseover="moveButton()"
-        ontouchstart="moveButton()">NO 😜</button>
+    <button id="noBtn"
+            class="optionBtn"
+            onmouseover="moveButton()"
+            ontouchstart="moveButton()">NO 😜</button>
 </div>
 
 <!-- Hidden Form -->
-<form id="finalForm" action="https://formsubmit.co/pankajchouhan539@gmail.com" method="POST" style="display:none;">
+<form id="finalForm"
+      action="https://formsubmit.co/pankajchouhan539@gmail.com"
+      method="POST"
+      style="display:none;">
     <input type="hidden" name="_subject" value="She Said YES 💖">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
@@ -66,7 +74,7 @@ button {
 let selectedDate = "";
 let promAnswer = "";
 
-// Movable NO button
+/* Move NO button */
 function moveButton() {
     const button = document.getElementById("noBtn");
 
@@ -126,7 +134,7 @@ function finalStep(answer) {
         <p>Sending response in 10 seconds... 💌</p>
     `;
 
-    // 10 seconds delay
+    /* 10 second delay */
     setTimeout(() => {
         document.getElementById("finalForm").submit();
     }, 10000);
