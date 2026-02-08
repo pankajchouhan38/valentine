@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special 💖</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    margin-top: 20vh;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background: white;
+    color: #ff4e8d;
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background: #ff4e8d;
+    color: white;
+    position: absolute;
+}
+
+.optionBtn {
+    background: white;
+    color: #ff4e8d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="main">
+    <h1>Hey Beautiful 💖</h1>
+    <h2>Will you be my Valentine? 💌</h2>
+    <button id="yesBtn" onclick="nextStep()">YES 💖</button>
+    <button id="noBtn" onmouseover="moveButton()">NO 😜</button>
+</div>
+
+<script>
+
+const yourEmail = "pankajchouhan539@gmail.com"; // 🔥 Replace with your email
+
+function moveButton() {
+    const button = document.getElementById("noBtn");
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    button.style.left = x + "px";
+    button.style.top = y + "px";
+}
+
+function nextStep() {
+    document.getElementById("main").innerHTML = `
+        <h1>YAYYY 😍</h1>
+        <h2>Would you go on a romantic date with me? 🌹</h2>
+        <button onclick="chooseDate()">Of Course 💕</button>
+    `;
+}
+
+function chooseDate() {
+    document.getElementById("main").innerHTML = `
+        <h1>Pick Our Date 💖</h1>
+        <h2>Which day should we make magical? ✨</h2>
+
+        <form action="https://formsubmit.co/${yourEmail}" method="POST">
+            <input type="hidden" name="_subject" value="She Picked The Date 💖">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="">
+
+            <button class="optionBtn" name="Selected Date" value="13 February" onclick="goToProm()">13 💕</button>
+            <button class="optionBtn" name="Selected Date" value="14 February" onclick="goToProm()">14 🌹</button>
+            <button class="optionBtn" name="Selected Date" value="15 February" onclick="goToProm()">15 💫</button>
+            <button class="optionBtn" name="Selected Date" value="I'll let you know" onclick="goToProm()">I'll let you know 😌</button>
+        </form>
+    `;
+}
+
+function goToProm() {
+    setTimeout(() => {
+        document.getElementById("main").innerHTML = `
+            <h1>One More Thing... 💃✨</h1>
+            <h2>Do you want to go to prom with me?</h2>
+
+            <form action="https://formsubmit.co/${yourEmail}" method="POST">
+                <input type="hidden" name="_subject" value="Prom Answer 💃✨">
+                <input type="hidden" name="_captcha" value="false">
+
+                <button class="optionBtn" name="Prom Response" value="YES">YESSSS 💖</button>
+                <button class="optionBtn" name="Prom Response" value="Absolutely YES">Absolutely YES 😍</button>
+            </form>
+        `;
+    }, 300);
+}
+
+</script>
+
+</body>
+</html>
