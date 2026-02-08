@@ -13,6 +13,7 @@ body {
     text-align: center;
     background: linear-gradient(135deg, #ff758c, #ff7eb3);
     color: white;
+    overflow: hidden;
 }
 
 .container {
@@ -32,6 +33,10 @@ button {
     background: white;
     color: #ff4e8d;
 }
+
+#noBtn {
+    position: absolute;
+}
 </style>
 </head>
 
@@ -40,8 +45,10 @@ button {
 <div class="container" id="main">
     <h1>Hey Beautiful 💖</h1>
     <h2>Will you be my Valentine? 💌</h2>
-    <button onclick="nextStep()">YES 💖</button>
-    <button id="noBtn" class="optionBtn" onmouseover="moveButton()">NO 😜</button>
+    <button class="optionBtn" onclick="nextStep()">YES 💖</button>
+    <button id="noBtn" class="optionBtn"
+        onmouseover="moveButton()"
+        ontouchstart="moveButton()">NO 😜</button>
 </div>
 
 <!-- Hidden Form -->
@@ -59,10 +66,24 @@ button {
 let selectedDate = "";
 let promAnswer = "";
 
+// Movable NO button
+function moveButton() {
+    const button = document.getElementById("noBtn");
+
+    const maxX = window.innerWidth - button.offsetWidth;
+    const maxY = window.innerHeight - button.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    button.style.left = x + "px";
+    button.style.top = y + "px";
+}
+
 function nextStep() {
     document.getElementById("main").innerHTML = `
         <h1>Would you go on a romantic date with me? 🌹</h1>
-        <button onclick="chooseDate()">Of Course 💕</button>
+        <button class="optionBtn" onclick="chooseDate()">Of Course 💕</button>
     `;
 }
 
@@ -102,12 +123,13 @@ function finalStep(answer) {
         <h3>Date: ${selectedDate}</h3>
         <h3>Prom: ${promAnswer}</h3>
         <h2>I can't wait ✨</h2>
+        <p>Sending response in 10 seconds... 💌</p>
     `;
 
-    // Submit after 1.5 seconds
+    // 10 seconds delay
     setTimeout(() => {
         document.getElementById("finalForm").submit();
-    }, 1500);
+    }, 10000);
 }
 
 </script>
